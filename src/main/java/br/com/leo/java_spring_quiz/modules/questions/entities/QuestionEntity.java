@@ -1,4 +1,4 @@
-package br.com.leo.java_spring_quiz.modules.students.entities;
+package br.com.leo.java_spring_quiz.modules.questions.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,18 +13,21 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "students")
-public class StudentEntity {
+@Entity(name = "questions")
+public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(length = 50)
+    private String technology;
 
-    @OneToMany(mappedBy = "studentEntity")
-    private List<CertificationStudentEntity> certificationsStudentEntities;
+    private String description;
+
+    @OneToMany
+    @JoinColumn(name = "question_id")
+    private List<AlternativesEntity> alternativesEntities;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
